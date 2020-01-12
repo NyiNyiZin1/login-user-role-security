@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" 
+xmlns="http://www.sprinfgramework.org/schema/security"
+ xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
+xmlns:th="http://www.thymeleaf.org"
+				 >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>Login</title>
+</head>
+
+<body>
+	<h2>Home Page</h2>
+	<hr>
+	
+	<p>
+	Welcome to the home page!
+	</p>
+	
+	<hr>
+	Logged user: <div sec:authentication="name"></div>
+	Roles: <div sec:authentication="principal.authorities"></div>
+	<hr>
+	<div sec:authorize="hasRole('ROLE_ADMIN')">
+  	<p>
+		<a href="admin">Admin Only</a>
+	</p>
+	</div>
+	<div sec:authorize="isAuthenticated()">Text visible only to
+		authenticated users.</div>
+	
+	
+
+
+
+</body>
