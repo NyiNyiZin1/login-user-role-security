@@ -25,7 +25,7 @@ xmlns:th="http://www.thymeleaf.org"
 	<hr>
 	<div sec:authorize="hasRole('ROLE_ADMIN')">
   	<p>
-		<a href="admin">Admin Only</a>
+		<a href="admin_page">Admin Only</a>
 	</p>
 	</div>
 	<div sec:authorize="isAuthenticated()">Text visible only to

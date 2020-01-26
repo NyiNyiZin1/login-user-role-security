@@ -36,7 +36,7 @@ public class UserService implements UserDetailsService{
 			user.setPassword(encode);
 			user.setRole("ROLE_ADMIN");
 			
-			userRepo.save(user);
+			userRepo.saveAndFlush(user);
 		}
 		if(!userRepo.existsByEmail("zawwinhtut@gmail.com")) {
 			User user = new User();
@@ -48,7 +48,19 @@ public class UserService implements UserDetailsService{
 			user.setPassword(encode);
 			user.setRole("ROLE_EMPLOYEE");
 			
-			userRepo.save(user);
+			userRepo.saveAndFlush(user);
+		}
+		if(!userRepo.existsByEmail("nn@gmail.com")) {
+			User user = new User();
+			
+			user.setName("NN");
+			user.setEmail("nn@gmail.com");
+			String encode = passwordEncoder.encode("nn");
+			System.out.println("Encoded Password : "+encode);
+			user.setPassword(encode);
+			user.setRole("NN");
+			
+			userRepo.saveAndFlush(user);
 		}
 		
 	}
@@ -56,14 +68,16 @@ public class UserService implements UserDetailsService{
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
 		
-		System.out.println("User email!!!!"+email);
+		System.err.println("User email!!!!"+email);
 		User user =  (User) userRepo.findByEmail(email);
 		//System.out.println("existing user >>>>"+user.getName());
 		if (user == null) {
-            throw new BadCredentialsException("User don't exist.");
+            throw new BadCredentialsException("User Service User don't exist.");
         }
 		List<GrantedAuthority> authorityList = new ArrayList<>();
 		authorityList.add(new SimpleGrantedAuthority(user.getRole()));
+		boolean a =authorityList.add(new SimpleGrantedAuthority(user.getRole()));
+		System.err.println(">>>>>>>>>>>"+a);
 		return new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(), authorityList);
 		
 	}

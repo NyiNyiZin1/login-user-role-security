@@ -27,17 +27,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
+            //url(/admin_page/**) link in controller
             	//.antMatchers("/main/**").hasRole("ADMIN")
-            	.antMatchers("/admin/**").hasRole("ADMIN")
+            	.antMatchers("/admin_page/**").hasRole("ADMIN")
                 .antMatchers("/","/components/**","/static/**","/dist/**","/js/**","/css/**").permitAll()
                 .antMatchers("/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
-                .loginPage("/login")
-                .loginProcessingUrl("/login").usernameParameter("email")
+            //url link in controller
+                .loginPage("/login_page")
+                .loginProcessingUrl("/login_page").usernameParameter("email")
                 .passwordParameter("password")
-                .defaultSuccessUrl("/main").failureUrl("/login?error")
+                .defaultSuccessUrl("/main_page").failureUrl("/login_page?error")
                 .permitAll()
                 .and()
                 .csrf();
